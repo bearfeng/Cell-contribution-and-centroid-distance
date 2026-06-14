@@ -47,7 +47,7 @@ prop_df$SpotID <- rownames(prop_df)
 # Calculate the contribution of each cell type to each spot
 contribution_df <- prop_df %>%
   pivot_longer(-SpotID, names_to = "CellType", values_to = "Proportion") %>%
-  left_join(z_scores %>% select(CompositeScore) %>% 
+  left_join(min_max_scores %>% select(CompositeScore) %>% 
               rownames_to_column("CellType"), by = "CellType") %>%
   mutate(RawContribution = Proportion * CompositeScore) %>%
   group_by(SpotID) %>%
